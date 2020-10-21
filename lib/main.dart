@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import './question.dart';
-import './answer.dart';
+import 'package:flutter_basics/result.dart';
+import './quiz.dart';
+import './result.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,22 +13,75 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final questions = const [
-      {
-        'questionText': 'What\'s your favourite color? ',
-        'answers': ['black', 'red', 'green', 'white']
-      },
-      {
-        'questionText': 'What\'s your favourite animal? ',
-        'answers': ['snake', 'elephant', 'lion', 'rabbit']
-      },
-      {
-        'questionText': 'What\'s your favourite instructor? ',
-        'answers': ['Max', 'Max2', 'Max3', 'Max4']
-      },
-    ];
+  final _questions = const [
+    {
+      'questionText': 'What\'s your favourite color? ',
+      'answers': [
+        {
+          'text': 'black',
+          'score': 10,
+        },
+        {
+          'text': 'red',
+          'score': 5,
+        },
+        {
+          'text': 'green',
+          'score': 3,
+        },
+        {
+          'text': 'blue',
+          'score': 2,
+        }
+      ]
+    },
+    {
+      'questionText': 'What\'s your favourite animal? ',
+      'answers': [
+        {
+          'text': 'rabbit',
+          'score': 1,
+        },
+        {
+          'text': 'lion',
+          'score': 6,
+        },
+        {
+          'text': 'elephant',
+          'score': 7,
+        },
+        {
+          'text': 'rabbit',
+          'score': 6,
+        }
+      ]
+    },
+    {
+      'questionText': 'What\'s your favourite instructor? ',
+      'answers': [
+        {
+          'text': 'max1',
+          'score': 10,
+        },
+        {
+          'text': 'Max2',
+          'score': 15,
+        },
+        {
+          'text': 'Max3',
+          'score': 3,
+        },
+        {
+          'text': 'Max4',
+          'score': 8,
+        }
+      ]
+    },
+  ];
   var _questionIndex = 0;
-  void _answerQuestion() {
+  int _totalScore = 0;
+  void _answerQuestion(int score) {
+    _totalScore += score;
     setState(() {
       _questionIndex += 1;
     });
@@ -36,22 +90,17 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-   
-
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('AppBar'),
-        ),
-        body:(_questionIndex < questions.length) ? Column(
-          children: [
-            Question(questions[_questionIndex]['questionText']),
-            ...(questions[_questionIndex]['answers'] as List<String>).map((answer) {
-              return Answer(_answerQuestion,answer);
-            }).toList()
-          ], 
-        ) : Center(child:Text('you did it',style: TextStyle(fontSize: 30.0),))
-      ),
-    );
+        home: Scaffold(
+            appBar: AppBar(
+              title: Text('AppBar'),
+            ),
+            body: (_questionIndex < _questions.length)
+                ? Quiz(
+                    answerQuestion: _answerQuestion,
+                    questionIndex: _questionIndex,
+                    questions: _questions,
+                  )
+                : Result(_totalScore)));
   }
 }
