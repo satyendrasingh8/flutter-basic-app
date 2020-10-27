@@ -19,14 +19,14 @@ class _MyAppState extends State<MyApp> {
       'answers': [
         {
           'text': 'black',
-          'score': 10,
+          'score': 5,
         },
         {
           'text': 'red',
           'score': 5,
         },
         {
-          'text': 'green',
+          'text': 'green', 
           'score': 3,
         },
         {
@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
         },
         {
           'text': 'lion',
-          'score': 6,
+          'score': 1,
         },
         {
           'text': 'elephant',
@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
       'answers': [
         {
           'text': 'max1',
-          'score': 10,
+          'score': 3,
         },
         {
           'text': 'Max2',
